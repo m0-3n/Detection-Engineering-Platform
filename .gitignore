@@ -1,0 +1,12 @@
+*.pyc
+__pycache__/
+.env
+.vscode/
+.idea/
+*.log
+*.iso
+*.vmdk
+*.vdi
+*.qcow2
+*.ova
+*.ovf
