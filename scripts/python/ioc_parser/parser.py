@@ -1,6 +1,7 @@
 from pathlib import Path
 from models import IOC, IOCType
 from models import IOC
+from deduplicator import remove_duplicates
 from validator import (
     is_domain,
     is_ipv4,
@@ -51,4 +52,4 @@ def parse_file(path: str) -> list[IOC]:
 
             results.append(_classify(value))
 
-    return results
+    return remove_duplicates(results)
