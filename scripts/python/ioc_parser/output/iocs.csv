@@ -1,0 +1,6 @@
+value,ioc_type,is_valid
+8.8.8.8,ipv4,True
+google.com,domain,True
+https://example.com/login,url,True
+44d88612fea8a8f36de82e1278abb02f,md5,True
+invalid-ip,unknown,False

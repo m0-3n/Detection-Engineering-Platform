@@ -1,0 +1,5 @@
+8.8.8.8
+google.com
+https://example.com/login
+44d88612fea8a8f36de82e1278abb02f
+invalid-ip

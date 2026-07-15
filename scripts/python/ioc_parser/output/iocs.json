@@ -1,0 +1,27 @@
+[
+    {
+        "value": "8.8.8.8",
+        "ioc_type": "ipv4",
+        "is_valid": true
+    },
+    {
+        "value": "google.com",
+        "ioc_type": "domain",
+        "is_valid": true
+    },
+    {
+        "value": "https://example.com/login",
+        "ioc_type": "url",
+        "is_valid": true
+    },
+    {
+        "value": "44d88612fea8a8f36de82e1278abb02f",
+        "ioc_type": "md5",
+        "is_valid": true
+    },
+    {
+        "value": "invalid-ip",
+        "ioc_type": "unknown",
+        "is_valid": false
+    }
+]
