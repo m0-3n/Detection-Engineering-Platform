@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from dataclasses import asdict
 
-from models import IOC
+from scripts.python.ioc_parser.models import IOC
 
 
 def export_json(iocs: list[IOC], output_file: str) -> None:

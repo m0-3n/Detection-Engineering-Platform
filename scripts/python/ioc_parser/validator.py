@@ -3,7 +3,7 @@ from __future__ import annotations
 import ipaddress
 from urllib.parse import urlparse
 
-from constants import (
+from scripts.python.ioc_parser.constants import (
     DOMAIN_PATTERN,
     MD5_PATTERN,
     SHA1_PATTERN,

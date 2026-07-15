@@ -1,8 +1,16 @@
 from pathlib import Path
 import yaml
+from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[2]
 
-RULE_PATH = Path("sigma\\windows\\DET-002-PowerShell-Remote-Content-Retrieval.yml")
+RULE_PATH = (
+    ROOT
+    / "detections"
+    / "sigma"
+    / "windows"
+    / "DET-002-PowerShell-Remote-Content-Retrieval.yml"
+)
 
 
 def load_rule():

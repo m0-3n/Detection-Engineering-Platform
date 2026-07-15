@@ -1,5 +1,5 @@
-from models import IOC
-from normalizer import normalize
+from scripts.python.ioc_parser.models import IOC
+from scripts.python.ioc_parser.normalizer import normalize
 
 
 def remove_duplicates(iocs: list[IOC]) -> list[IOC]:

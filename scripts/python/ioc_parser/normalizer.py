@@ -1,4 +1,4 @@
-from models import IOC, IOCType
+from scripts.python.ioc_parser.models import IOC, IOCType
 from urllib.parse import urlparse, urlunparse
 
 

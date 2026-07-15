@@ -1,8 +1,8 @@
 from pathlib import Path
-from models import IOC, IOCType
-from models import IOC
-from deduplicator import remove_duplicates
-from validator import (
+from scripts.python.ioc_parser.models import IOC, IOCType
+from scripts.python.ioc_parser.models import IOC
+from scripts.python.ioc_parser.deduplicator import remove_duplicates
+from scripts.python.ioc_parser.validator import (
     is_domain,
     is_ipv4,
     is_md5,
