@@ -1,0 +1,17 @@
+<!--
+Detection ID : DET-000
+Purpose      : Foundation PowerShell detection
+Status       : Draft
+-->
+
+<group name="windows,powershell">
+
+    <rule id="100000" level="3">
+
+        <description>
+            PowerShell process execution detected
+        </description>
+
+    </rule>
+
+</group>

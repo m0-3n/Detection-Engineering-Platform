@@ -1,0 +1,25 @@
+<!--
+Detection ID : DET-001
+Title        : Suspicious PowerShell Encoded Command
+Status       : Draft (Lab Validation Pending)
+
+This rule is designed using documented Sysmon Event ID 1 telemetry.
+Field names and matching logic must be verified against a live Wazuh deployment
+before promotion to production.
+-->
+
+<group name="windows,powershell,execution,attack">
+
+    <rule id="100100" level="10">
+
+        <description>
+            Suspicious PowerShell Encoded Command
+        </description>
+
+        <mitre>
+            <id>T1059.001</id>
+        </mitre>
+
+    </rule>
+
+</group>
