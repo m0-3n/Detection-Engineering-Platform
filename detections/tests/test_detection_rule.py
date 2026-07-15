@@ -1,4 +1,4 @@
-from models.detection_rule import (
+from detections.models.detection_rule import (
     DetectionRule,
     Severity,
     Status,

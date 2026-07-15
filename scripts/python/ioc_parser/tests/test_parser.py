@@ -1,5 +1,5 @@
 from scripts.python.ioc_parser.parser import parse_file
-from models import IOCType
+from scripts.python.ioc_parser.models import IOCType
 
 def test_parse_file():
     results = parse_file("tests/sample_iocs.txt")

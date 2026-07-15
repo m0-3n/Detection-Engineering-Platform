@@ -1,5 +1,5 @@
 from scripts.python.ioc_parser.deduplicator import remove_duplicates
-from models import IOC, IOCType
+from scripts.python.ioc_parser.models import IOC, IOCType
 
 
 def test_duplicate_domains():
