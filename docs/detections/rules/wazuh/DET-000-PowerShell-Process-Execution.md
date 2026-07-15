@@ -15,6 +15,44 @@ This detection identifies PowerShell process creation events. It is intended to 
 
 Generate a detection whenever a PowerShell process (powershell.exe or pwsh.exe) is created.
 
+### Logic.
+IF
+
+EventID == 1
+
+AND
+
+Image ends with "powershell.exe"
+
+OR
+
+Image ends with "pwsh.exe"
+
+THEN
+
+Generate informational detection
+
+## Detection Conditions
+
+| Condition                        | Required |
+| -------------------------------- | -------- |
+| Event Source                     | Sysmon   |
+| Event ID                         | 1        |
+| Image ends with `powershell.exe` | Yes      |
+| Image ends with `pwsh.exe`       | Yes      |
+
+
+## Required Fields
+
+| Field       | Purpose                        |
+| ----------- | ------------------------------ |
+| EventID     | Confirm process creation event |
+| Image       | Identify the executable        |
+| ParentImage | Investigation context          |
+| CommandLine | Used by child detections       |
+| User        | Attribution                    |
+
+
 ## Expected Behavior
 
 Should detect:

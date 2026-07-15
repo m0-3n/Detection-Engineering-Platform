@@ -1,4 +1,4 @@
-from deduplicator import remove_duplicates
+from scripts.python.ioc_parser.deduplicator import remove_duplicates
 from models import IOC, IOCType
 
 

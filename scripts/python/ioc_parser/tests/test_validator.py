@@ -1,4 +1,4 @@
-from validator import (
+from scripts.python.ioc_parser.validator import (
     is_domain,
     is_ipv4,
     is_md5,

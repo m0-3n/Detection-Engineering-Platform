@@ -1,4 +1,4 @@
-from parser import parse_file
+from scripts.python.ioc_parser.parser import parse_file
 from models import IOCType
 
 def test_parse_file():

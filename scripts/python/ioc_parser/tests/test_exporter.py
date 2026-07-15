@@ -1,6 +1,5 @@
 from pathlib import Path
-
-from exporter import export_csv, export_json, export_txt
+from scripts.python.ioc_parser.exporter import export_csv, export_json, export_txt
 from models import IOC, IOCType
 
 

@@ -1,0 +1,56 @@
+title: PowerShell Remote Content Retrieval
+
+id: DET-002
+
+status: experimental
+
+description: >
+  Detects PowerShell processes attempting to retrieve
+  remote content using commonly abused PowerShell
+  download functionality.
+
+author: m03n
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1105/
+
+tags:
+  - attack.execution
+  - attack.command-and-control
+  - attack.t1059.001
+  - attack.t1105
+  - powershell.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  powershell_process:
+
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+
+  remote_content:
+
+    CommandLine|contains:
+      - 'DownloadString'
+      - 'DownloadFile'
+      - 'Invoke-WebRequest'
+      - 'Invoke-RestMethod'
+
+  condition: powershell_process and remote_content
+
+falsepositives:
+  - Enterprise administration
+  - Software deployment tools
+  - Internal automation
+  - Microsoft Intune
+  - SCCM
+
+level: medium
