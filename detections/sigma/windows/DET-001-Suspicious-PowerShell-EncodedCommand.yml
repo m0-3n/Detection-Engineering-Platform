@@ -1,0 +1,48 @@
+title: Suspicious PowerShell Encoded Command
+
+id: DET-001
+
+status: experimental
+
+description: >
+  Detects PowerShell processes executed using the
+  -EncodedCommand parameter, which is commonly used
+  to execute obfuscated PowerShell commands.
+
+author: m03n
+
+date: 2026-07-15
+
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+
+tags:
+  - attack.execution
+  - attack.t1059.00
+  - powershell.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  selection:
+
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+
+    CommandLine|contains:
+      - '-EncodedCommand'
+      - '-enc'
+
+  condition: selection
+
+falsepositives:
+  - Enterprise administration
+  - Microsoft Intune
+  - SCCM
+  - Administrative automation
+
+level: high
