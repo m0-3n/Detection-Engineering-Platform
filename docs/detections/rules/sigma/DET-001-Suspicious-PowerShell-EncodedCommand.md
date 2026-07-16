@@ -178,5 +178,9 @@ The use of `-EncodedCommand` should be treated as an initial indicator rather th
 
 Higher-confidence detections are achieved by correlating multiple telemetry sources and behavioral indicators. For example, encoded PowerShell execution combined with a suspicious parent process, outbound network communication, or the creation of additional processes provides a much stronger indication of malicious activity while reducing false positives.
 
+## Related Detections
 
+- DET-002
+- DET-003
+- DET-004
 

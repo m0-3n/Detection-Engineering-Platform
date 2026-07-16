@@ -1,0 +1,53 @@
+title: PowerShell Hidden Window
+
+id: DET-004
+
+status: experimental
+
+description: >
+  Detects PowerShell processes started with hidden
+  window arguments.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1564/
+  - https://attack.mitre.org/techniques/T1059/001/
+
+tags:
+  - attack.defense-evasion
+  - attack.execution
+  - attack.t1564
+  - attack.t1059.001
+  - powershell.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  powershell_process:
+
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+
+  hidden_window:
+
+    CommandLine|contains:
+      - '-WindowStyle Hidden'
+      - '-windowstyle hidden'
+      - '-w hidden'
+
+  condition: powershell_process and hidden_window
+
+falsepositives:
+  - Enterprise automation
+  - Silent software deployment
+  - Administrative scripting
+  - Scheduled maintenance
+
+level: medium
