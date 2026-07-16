@@ -1,0 +1,56 @@
+title: PowerShell Execution Policy Bypass
+
+id: DET-003
+
+status: experimental
+
+description: >
+  Detects PowerShell processes started with
+  execution policy bypass arguments.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - powershell.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  powershell_process:
+
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+
+  execution_policy:
+
+    CommandLine|contains:
+      - '-ExecutionPolicy'
+      - '-executionpolicy'
+      - '-ep'
+
+  bypass:
+
+    CommandLine|contains:
+      - 'Bypass'
+      - 'bypass'
+
+  condition: powershell_process and execution_policy and bypass
+
+falsepositives:
+  - Enterprise administration
+  - Deployment automation
+  - Software installation
+  - Build pipelines
+
+level: medium
