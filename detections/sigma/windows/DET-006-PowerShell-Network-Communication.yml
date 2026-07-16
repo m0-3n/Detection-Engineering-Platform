@@ -1,0 +1,57 @@
+title: PowerShell Network Communication
+
+id: DET-006
+
+status: experimental
+
+description: >
+  Detects PowerShell processes using networking
+  functionality commonly associated with remote
+  communication.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1071/001/
+
+tags:
+  - attack.command-and-control
+  - attack.execution
+  - attack.t1059.001
+  - attack.t1071.001
+  - powershell.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  powershell_process:
+
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+
+  network_functions:
+
+    CommandLine|contains:
+      - 'Invoke-WebRequest'
+      - 'Invoke-RestMethod'
+      - 'Net.WebClient'
+      - 'System.Net.Http.HttpClient'
+      - 'WebRequest.Create'
+
+  condition: powershell_process and network_functions
+
+falsepositives:
+  - Enterprise automation
+  - Azure administration
+  - Cloud management
+  - Software deployment
+  - Administrative scripting
+
+level: high
