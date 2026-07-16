@@ -1,0 +1,58 @@
+title: PsExec Remote Execution
+
+id: DET-011
+
+status: experimental
+
+description: >
+  Detects PsExec being used to remotely execute
+  PowerShell or Command Prompt.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+  - https://attack.mitre.org/techniques/T1569/002/
+
+tags:
+  - attack.lateral-movement
+  - attack.execution
+  - attack.t1021.002
+  - attack.t1569.002
+  - psexec.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  psexec_process:
+
+    Image|endswith:
+      - '\PsExec.exe'
+      - '\PsExec64.exe'
+
+  remote_host:
+
+    CommandLine|contains:
+      - '\\'
+
+  suspicious_process:
+
+    CommandLine|contains:
+      - 'powershell.exe'
+      - 'cmd.exe'
+
+  condition: psexec_process and remote_host and suspicious_process
+
+falsepositives:
+  - Enterprise administration
+  - Helpdesk operations
+  - SCCM
+  - Software deployment
+  - IT maintenance
+
+level: high
