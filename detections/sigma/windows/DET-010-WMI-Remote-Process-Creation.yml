@@ -1,0 +1,60 @@
+title: WMI Remote Process Creation
+
+id: DET-010
+
+status: experimental
+
+description: >
+  Detects WMI being used to remotely create
+  processes commonly associated with attacker
+  activity.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1047/
+  - https://attack.mitre.org/techniques/T1059/001/
+
+tags:
+  - attack.lateral-movement
+  - attack.execution
+  - attack.t1047
+  - attack.t1059.001
+  - lolbin.wmi
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  wmi_process:
+
+    Image|endswith:
+      - '\wmic.exe'
+
+  process_creation:
+
+    CommandLine|contains:
+      - 'process'
+      - 'call'
+      - 'create'
+
+  suspicious_process:
+
+    CommandLine|contains:
+      - 'powershell.exe'
+      - 'cmd.exe'
+
+  condition: wmi_process and process_creation and suspicious_process
+
+falsepositives:
+  - Enterprise administration
+  - SCCM
+  - Intune
+  - Remote management
+  - Monitoring software
+
+level: high
