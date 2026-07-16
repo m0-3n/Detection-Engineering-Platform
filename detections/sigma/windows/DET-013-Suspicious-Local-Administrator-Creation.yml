@@ -1,0 +1,54 @@
+title: Suspicious Local Administrator Creation
+
+id: DET-013
+
+status: experimental
+
+description: >
+  Detects creation of local user accounts
+  and assignment to the local Administrators
+  group.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+  - https://attack.mitre.org/techniques/T1098/
+
+tags:
+  - attack.persistence
+  - attack.privilege-escalation
+  - attack.t1136.001
+  - attack.t1098
+  - newaccount.escalated
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  create_user:
+
+    CommandLine|contains:
+      - 'net user'
+      - '/add'
+      - 'New-LocalUser'
+
+  add_admin:
+
+    CommandLine|contains:
+      - 'net localgroup administrators'
+      - 'Add-LocalGroupMember'
+
+  condition: create_user or add_admin
+
+falsepositives:
+  - Enterprise administration
+  - User onboarding
+  - Helpdesk operations
+  - IT maintenance
+
+level: high
