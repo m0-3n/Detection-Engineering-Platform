@@ -1,0 +1,61 @@
+title: Regsvr32 Remote Script Execution
+
+id: DET-009
+
+status: experimental
+
+description: >
+  Detects Regsvr32 downloading and executing
+  remote scriptlets through scrobj.dll.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1218/010/
+  - https://attack.mitre.org/techniques/T1105/
+
+tags:
+  - attack.defense-evasion
+  - attack.command-and-control
+  - attack.t1218.010
+  - attack.t1105
+  - binary.lolbin
+  - regsvr32.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  regsvr32_process:
+
+    Image|endswith:
+      - '\regsvr32.exe'
+
+  remote_script:
+
+    CommandLine|contains:
+      - '/i:'
+
+  script_engine:
+
+    CommandLine|contains:
+      - 'scrobj.dll'
+
+  remote_url:
+
+    CommandLine|contains:
+      - 'http://'
+      - 'https://'
+
+  condition: regsvr32_process and remote_script and script_engine and remote_url
+
+falsepositives:
+  - Administrative DLL registration
+  - Enterprise COM management
+  - Software installation
+
+level: high
