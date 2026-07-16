@@ -1,0 +1,58 @@
+title: Certutil Remote Download
+
+id: DET-007
+
+status: experimental
+
+description: >
+  Detects certutil.exe being abused to download
+  remote content over HTTP or HTTPS.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1105/
+  - https://attack.mitre.org/techniques/T1218/
+
+tags:
+  - attack.command-and-control
+  - attack.defense-evasion
+  - attack.t1105
+  - attack.t1218
+  - binary.lolbins
+  - certutil.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  certutil_process:
+
+    Image|endswith:
+      - '\certutil.exe'
+
+  download_flags:
+
+    CommandLine|contains:
+      - '-urlcache'
+      - '-split'
+      - '-f'
+
+  remote_url:
+
+    CommandLine|contains:
+      - 'http://'
+      - 'https://'
+
+  condition: certutil_process and download_flags and remote_url
+
+falsepositives:
+  - Certificate administration
+  - PKI management
+  - Enterprise certificate deployment
+
+level: high
