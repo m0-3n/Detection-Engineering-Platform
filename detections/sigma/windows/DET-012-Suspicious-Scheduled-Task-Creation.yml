@@ -1,0 +1,56 @@
+title: Suspicious Scheduled Task Creation
+
+id: DET-012
+
+status: experimental
+
+description: >
+  Detects scheduled tasks created to execute
+  PowerShell or Command Prompt for persistence.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+  - https://attack.mitre.org/techniques/T1059/001/
+
+tags:
+  - attack.persistence
+  - attack.execution
+  - attack.t1053.005
+  - attack.t1059.001
+  - schtask.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  schtasks_process:
+
+    Image|endswith:
+      - '\schtasks.exe'
+
+  create_task:
+
+    CommandLine|contains:
+      - '/create'
+
+  suspicious_process:
+
+    CommandLine|contains:
+      - 'powershell.exe'
+      - 'cmd.exe'
+
+  condition: schtasks_process and create_task and suspicious_process
+
+falsepositives:
+  - Enterprise administration
+  - Windows maintenance
+  - Backup software
+  - Software deployment
+
+level: high
