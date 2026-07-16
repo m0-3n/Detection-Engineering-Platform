@@ -1,0 +1,49 @@
+title: Rundll32 Suspicious DLL Execution
+
+id: DET-008
+
+status: experimental
+
+description: >
+  Detects Rundll32 executing suspicious
+  script-based arguments commonly associated
+  with attacker activity.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1218/011/
+
+tags:
+  - attack.defense-evasion
+  - attack.t1218.011
+  - binary.lolbin
+  - rundll32.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  rundll32_process:
+
+    Image|endswith:
+      - '\rundll32.exe'
+
+  suspicious_arguments:
+
+    CommandLine|contains:
+      - 'javascript:'
+      - 'mshtml'
+
+  condition: rundll32_process and suspicious_arguments
+
+falsepositives:
+  - Windows Control Panel
+  - Vendor management utilities
+  - Administrative troubleshooting
+
+level: high
