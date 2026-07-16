@@ -1,0 +1,58 @@
+title: Suspicious Parent Process Launching PowerShell
+
+id: DET-005
+
+status: experimental
+
+description: >
+  Detects PowerShell launched by applications that
+  do not normally execute PowerShell.
+
+author: Moinuddin
+
+date: 2026-07-16
+
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://attack.mitre.org/techniques/T1204/
+  - https://attack.mitre.org/techniques/T1566/
+
+tags:
+  - attack.execution
+  - attack.initial-access
+  - attack.user-execution
+  - attack.t1059.001
+  - attack.t1204
+  - attack.t1566
+  - powershell.exe
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  powershell_process:
+
+    Image|endswith:
+      - '\powershell.exe'
+      - '\pwsh.exe'
+
+  suspicious_parent:
+
+    ParentImage|endswith:
+      - '\WINWORD.EXE'
+      - '\EXCEL.EXE'
+      - '\POWERPNT.EXE'
+      - '\OUTLOOK.EXE'
+      - '\AcroRd32.exe'
+
+  condition: powershell_process and suspicious_parent
+
+falsepositives:
+  - Administrative Office automation
+  - Enterprise document workflows
+  - Software deployment
+  - Business applications
+
+level: high
