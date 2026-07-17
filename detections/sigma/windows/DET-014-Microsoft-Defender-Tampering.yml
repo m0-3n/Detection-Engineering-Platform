@@ -1,0 +1,60 @@
+title: Microsoft Defender Tampering
+
+id: DET-014
+
+status: experimental
+
+description: >
+  Detects attempts to disable or weaken Microsoft Defender
+  using PowerShell, Service Control Manager, or registry
+  modifications.
+
+author: Moinuddin
+
+date: 2026-07-17
+
+references:
+  - https://attack.mitre.org/techniques/T1562/001/
+
+tags:
+  - attack.defense-evasion
+  - attack.t1562.001
+  - microsoft.defender
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  powershell_disable:
+
+    CommandLine|contains:
+      - 'Set-MpPreference'
+      - '-DisableRealtimeMonitoring'
+      - '-DisableBehaviorMonitoring'
+      - '-DisableScriptScanning'
+      - '-DisableIOAVProtection'
+
+  service_stop:
+
+    CommandLine|contains|all:
+      - 'sc'
+      - 'stop'
+      - 'WinDefend'
+
+  registry_modification:
+
+    CommandLine|contains:
+      - 'reg add'
+      - 'Windows Defender'
+
+  condition: powershell_disable or service_stop or registry_modification
+
+falsepositives:
+  - Security administration
+  - Third-party antivirus installation
+  - Enterprise software deployment
+  - Security testing
+
+level: high 
