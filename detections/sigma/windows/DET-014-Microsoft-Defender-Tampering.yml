@@ -27,14 +27,10 @@ logsource:
 
 detection:
 
-  powershell_disable:
+  powershell_cmd:
 
     CommandLine|contains:
       - 'Set-MpPreference'
-      - '-DisableRealtimeMonitoring'
-      - '-DisableBehaviorMonitoring'
-      - '-DisableScriptScanning'
-      - '-DisableIOAVProtection'
 
   service_stop:
 
@@ -43,13 +39,21 @@ detection:
       - 'stop'
       - 'WinDefend'
 
+  disable_flags:
+
+    CommandLine|contains:
+      - '-DisableRealtimeMonitoring'
+      - '-DisableBehaviorMonitoring'
+      - '-DisableScriptScanning'
+      - '-DisableIOAVProtection'
+
   registry_modification:
 
     CommandLine|contains:
       - 'reg add'
       - 'Windows Defender'
 
-  condition: powershell_disable or service_stop or registry_modification
+  condition: powershell_cmd and disable_flags or service_stop or registry_modification
 
 falsepositives:
   - Security administration
