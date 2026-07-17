@@ -1,0 +1,67 @@
+title: LSASS Memory Dump Attempt
+
+id: DET-015
+
+status: experimental
+
+description: >
+  Detects common techniques used to dump the LSASS process
+  for credential theft.
+
+author: Moinuddin
+
+date: 2026-07-17
+
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+
+tags:
+  - attack.credential-access
+  - attack.t1003.001
+  - lsass.exe
+  - credential.dumping
+
+logsource:
+  product: windows
+  category: process_creation
+
+detection:
+
+  procdump:
+
+    CommandLine|contains|all:
+      - "procdump"
+      - "-ma"
+      - "lsass"
+
+  comsvcs:
+
+    CommandLine|contains|all:
+      - "rundll32"
+      - "comsvcs.dll"
+      - "MiniDump"
+      - "lsass"
+
+  mimikatz:
+
+    CommandLine|contains:
+      - "sekurlsa::logonpasswords"
+
+  nanodump:
+
+    CommandLine|contains:
+      - "nanodump"
+
+  dumpfile:
+
+    CommandLine|contains:
+      - "lsass.dmp"
+
+  condition: procdump or comsvcs or mimikatz or nanodump or dumpfile
+
+falsepositives:
+  - Digital forensics
+  - Incident response
+  - Authorized memory acquisition
+
+level: critical
