@@ -64,7 +64,7 @@ def test_registry_modification():
 def test_condition():
     assert (
         load_rule()["detection"]["condition"]
-        == "powershell_cmd and disable_flags or service_stop or registry_modification"
+        == "(powershell_cmd and disable_flags) or service_stop or registry_modification"
     )
 
 
