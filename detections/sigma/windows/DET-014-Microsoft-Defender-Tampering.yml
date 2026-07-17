@@ -53,7 +53,7 @@ detection:
       - 'reg add'
       - 'Windows Defender'
 
-  condition: powershell_cmd and disable_flags or service_stop or registry_modification
+  condition: (powershell_cmd and disable_flags) or service_stop or registry_modification
 
 falsepositives:
   - Security administration
